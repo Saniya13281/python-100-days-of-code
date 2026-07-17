@@ -1,0 +1,60 @@
+rock = '''
+    _______
+---'   ____)
+      (_____)
+      (_____)
+      (____)
+---.__(___)
+'''
+
+paper = '''
+    _______
+---'   ____)____
+          ______)
+          _______)
+         _______)
+---.__________)
+'''
+
+scissors = '''
+    _______
+---'   ____)____
+          ______)
+       __________)
+      (____)
+---.__(___)
+'''
+
+user_choice= int(input("What do you choice? Type 0 for rock, 1 for paper or 2 for scissors\n"))
+if user_choice <= 0 or user_choice > 2 :
+   print("Invalid input ! You lose")
+elif user_choice == 0 :
+    print(rock)
+elif user_choice == 1:
+    print(paper)
+else:
+    print(scissors)
+
+import random
+computer_choose=random.randint(0,2)
+print("computer choose:")
+if computer_choose == 0:
+    print(rock)
+elif computer_choose == 1:
+    print(paper)
+else:
+    print(scissors)
+
+if user_choice >= 3 or  user_choice < 0:
+    print("You chose a invalid input! You lose")
+elif user_choice == 0 and computer_choose == 2 :
+    print("You Win!")
+elif user_choice == 2 and computer_choose == 0:
+    print("You lose")
+elif user_choice < computer_choose :
+    print("You lose")
+elif user_choice > computer_choose :
+    print("You win!")
+elif user_choice == computer_choose:
+    print("It's a draw")
+
