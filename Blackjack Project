@@ -1,0 +1,30 @@
+import random
+def b_project():
+    user_start = input("Do you want to play a game of Blackjack? Type 'y' or 'n':")
+    print("\n" * 30)
+    from art import logo
+    print(logo)
+    cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
+    user_cards=random.choices(cards, k=2)
+    computer_cards=random.choice(cards)
+    total = sum(user_cards)
+    print(f"Your cards: {user_cards}, current_score: {total} ")
+    print(f"Computer's first card: {computer_cards}")
+    blackjack = [
+        [11,10],
+        [10,11]
+    ]
+    if user_cards in blackjack :
+        print("Win")
+    play=input("Type 'y' to get another card, type 'n' to pass:")
+    while play == "y":
+        another_card = random.choice(cards)
+        user_cards.append(another_card)
+        total = sum(user_cards)
+        print(f"Your cards: {user_cards}, current_score: {total} ")
+        print(f"Computer's first card: {computer_cards}")
+        play=input("Type 'y' to get another card, type 'n' to pass:")
+        if total > 21:
+            print("You lose")
+        
+b_project()
