@@ -1,30 +1,81 @@
 import random
+from art import logo
+
 def b_project():
-    user_start = input("Do you want to play a game of Blackjack? Type 'y' or 'n':")
     print("\n" * 30)
-    from art import logo
     print(logo)
+
     cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
+
     user_cards=random.choices(cards, k=2)
-    computer_cards=random.choice(cards)
+    computer_cards=random.choices(cards, k=2)
+
+    computer_total = sum(computer_cards)
+
+    if computer_total == 21 and len(computer_cards)==2:
+        print(f"Computer's cards: {computer_cards}, current_score: {computer_total}")
+        print("Computer has Blackjack . You lose")
+        return
+
+    comp_first_card=computer_cards[0]
+
     total = sum(user_cards)
+
     print(f"Your cards: {user_cards}, current_score: {total} ")
-    print(f"Computer's first card: {computer_cards}")
-    blackjack = [
-        [11,10],
-        [10,11]
-    ]
-    if user_cards in blackjack :
-        print("Win")
-    play=input("Type 'y' to get another card, type 'n' to pass:")
-    while play == "y":
+    print(f"Computer's first card: {comp_first_card}")
+
+    if total == 21 and len(user_cards) == 2:
+        print("You Win. You have Blackjack!")
+        return
+
+    user_choice=input("Type 'y' to get another card, type 'n' to pass:")
+
+    while user_choice == "y":
         another_card = random.choice(cards)
         user_cards.append(another_card)
         total = sum(user_cards)
-        print(f"Your cards: {user_cards}, current_score: {total} ")
-        print(f"Computer's first card: {computer_cards}")
-        play=input("Type 'y' to get another card, type 'n' to pass:")
+
+        if 11 in user_cards and total > 21:
+            user_cards.remove(11)
+            user_cards.append(1)
+            total = sum(user_cards)
+
+        print(f"Your cards: {user_cards}, current_score: {total}")
+        print(f"Computer's first card: {comp_first_card}")
+
         if total > 21:
-            print("You lose")
-        
-b_project()
+            print(f"Computer's cards: {computer_cards}, current_score: {computer_total}")
+            print("You lose.Computer Wins")
+            return
+
+        user_choice=input("Type 'y' to get another card, type 'n' to pass:")
+
+    while computer_total < 17:
+        another_comp_card = random.choice(cards)
+        computer_cards.append(another_comp_card)
+        computer_total = sum(computer_cards)
+
+        if 11 in computer_cards and computer_total > 21:
+            computer_cards.remove(11)
+            computer_cards.append(1)
+            computer_total = sum(computer_cards)
+
+        print(f"Computer's cards: {computer_cards}, current_score: {computer_total}")
+
+        if computer_total > 21:
+            print("Computer went over 21 .You Win!")
+            return
+    print(f"Computer's cards: {computer_cards}, current_score: {computer_total}")
+
+    if total > computer_total:
+        print("You Win")
+    elif computer_total > total:
+        print("Computer Wins")
+    elif total == computer_total:
+        print("Its a Draw")
+
+user_start = input("Do you want to play a game of Blackjack? Type 'y' or 'n':")
+
+while user_start == "y":
+    b_project()
+    user_start = input("Do you want to play again? Type 'y' or 'n': ")
