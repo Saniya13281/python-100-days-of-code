@@ -24,11 +24,13 @@ while max_attempts > 0:
         is_game_over = True
         break
     elif user_guess < chosen_number:
-        print("Too Low.\nGuess Again.")
+        print("Too Low.")
     elif user_guess > chosen_number:
-        print("Too High.\nGuess Again")
+        print("Too High.")
+
     max_attempts = max_attempts - 1
 
-while max_attempts == 0:
-    print("You've run out of guesses. Refresh the page to run again.")
-    print("\n" * 30 )
+    if max_attempts == 0:
+        print("You've run out of guesses. Refresh the page to run again.")
+    elif user_guess != chosen_number:
+        print("Guess Again.")
