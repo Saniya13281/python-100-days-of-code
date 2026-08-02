@@ -1,0 +1,43 @@
+import random
+from art import logo , vs
+from game_data import data
+
+def start_game():
+    score = 0
+    game_over = False
+
+    statement1 = random.choice(data)
+    statement2 = random.choice(data)
+
+    while not game_over:
+        print(logo)
+        compare_A = f"{statement1['name']},a {statement1['description']} ,from {statement1['country']}"
+        print(f"Compare A: {compare_A}")
+
+        print(vs)
+        against_B = f"{statement2['name']},a {statement2['description']} ,from {statement2['country']}"
+        print(f"Against B: {against_B}")
+
+        user_guess =input("Who has more followers? Type 'A' or 'B': ")
+
+        follower_count_a = statement1["follower_count"]
+        follower_count_b=statement2["follower_count"]
+
+
+        if user_guess == "A" and follower_count_a > follower_count_b:
+            score = score + 1
+            print(f"You're right! Current Score : {score}")
+            statement1 = statement2  # replaces with correct one
+            statement2 = random.choice(data) #new statement
+        elif user_guess == "B" and follower_count_b > follower_count_a:
+            score = score + 1
+            print(f"You're right! Current Score : {score}")
+            statement1 = statement2  # replaces with correct one
+            statement2 = random.choice(data)
+        else :
+            print(logo)
+            print(f"Sorry that's wrong! Final Score : {score}")
+            break
+
+start_game()
+
